@@ -2,44 +2,59 @@
 <html>
 <head>
 <style>
-.text {
+
+body {
+  text-align: center;
+}
+
+.main_text {
   position: relative;
   font-family:"Calibri";
-  text-align: center;
+  width: 700px;
+  text-align: left;
+  padding-left: 30%;
 }
 
 .container {
   position: relative;
-  min-width: 600;
+  min-width: 800px;
+  height: 400px;
+  left: 20%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .board {
   position: relative;
-  min-width: 600;
+  min-width: 600px;
 }
 
 .elements {
   border:1px solid #d3d3d3;
+  position: absolute;
+  left:600px;
   overflow:scroll;
-  margin-left: 400;
-  height:100%;
+  text-align: left;
+  height: 400px;
 }
 
 .draw_canvas {
   border:1px solid #d3d3d3;
-  position: relative;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 .events_canvas {
   border:1px solid #d3d3d3;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
 }
 .options_canvas {
   border:1px solid #d3d3d3;
   position: absolute;
-  top: 10;
-  left: 10;
+  top: 10px;
+  left: 10px;
   opacity: 0.5;
 }
 
@@ -47,7 +62,7 @@
 </head>
 
 <body>
-<div id = "text_1" class="text">
+<div id="text_1" class="main_text">
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1<br/>
     á é í ó ö ő ü ű „–” ǎ â ț ș î<br/>
@@ -61,10 +76,10 @@
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
 </div>
-<div id = "container_1" class="container">
+<div id="container_1" class="container">
     <div class="board">
-      <canvas id="canvas_draw" class="draw_canvas" width="400" height="300"></canvas>
-      <canvas id="canvas_events" class="events_canvas" width="400" height="300" background="transparent"></canvas>
+      <canvas id="canvas_draw" class="draw_canvas" width="600" height="400"></canvas>
+      <canvas id="canvas_events" class="events_canvas" width="600" height="400" background="transparent"></canvas>
       <canvas id="canvas_options" class="options_canvas" width="40" height="40"></canvas>
     </div>
     <div class="elements">
@@ -89,7 +104,7 @@
     </div>
   </div>
 </div>
-<div id = "text_2" class="text">
+<div id="text_2" class="main_text">
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
@@ -101,6 +116,20 @@
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+</div>
+<div id="container_2" class="container"></div>
+<div id="text_3" class="main_text">
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
 </div>
 
 <script>
@@ -117,11 +146,12 @@ class Point {
         let saveLineWidth = ctx.lineWidth;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.strokeStyle = 'gray';
+        ctx.strokeStyle = "#00000080";
+        ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.strokeStyle = "#88888880";
         ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
         ctx.arc(this.x, this.y, 4, 0, 2 * Math.PI);
-        ctx.strokeStyle = 'black';
-        ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.lineWidth = saveLineWidth;
     }
@@ -144,7 +174,7 @@ class Board {
         ctx.lineWidth = 2;
         ctx.lineCap = 'round';
 
-        ctx.clearRect(0, 0, 400, 300);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         this.draw_func(ctx);
 
@@ -165,6 +195,10 @@ class Board {
 
 window.onload = function () {
     let containers = document.getElementsByClassName("container");
+    let base_container = document.getElementById('container_1');
+    for (let i = 1; i < containers.length; ++i) {
+        containers[i].innerHTML = base_container.innerHTML;
+    }
     let boards = [];
     for (let i = 0; i < containers.length; ++i) {
         boards.push(new Board(containers[i]))
@@ -173,6 +207,7 @@ window.onload = function () {
     boards[0].draw_func = function(ctx)
     {
         ctx.beginPath();
+        ctx.strokeStyle = 'blue';
         ctx.arc(95, 50, 40, 0, 2 * Math.PI);
         ctx.stroke();
     };
