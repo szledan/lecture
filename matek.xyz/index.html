@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+
+
 <style>
 
 body {
   text-align: center;
+  font-family:"Calibri";
 }
 
 .main_text {
   position: relative;
-  font-family:"Calibri";
   width: 700px;
   text-align: left;
   padding-left: 30%;
@@ -32,10 +50,12 @@ body {
 .elements {
   border:1px solid #d3d3d3;
   position: absolute;
-  left:600px;
-  overflow:scroll;
+  top: 60px;
+  left: 601px;
+  overflow: scroll;
   text-align: left;
-  height: 400px;
+  height: 360px;
+  width: 300px;
 }
 
 .draw_canvas {
@@ -53,9 +73,9 @@ body {
 .options_canvas {
   border:1px solid #d3d3d3;
   position: absolute;
-  top: 10px;
-  left: 10px;
-  opacity: 0.5;
+  top: 0px;
+  left: 601px;
+  /*opacity: 0.5;*/
 }
 
 </style>
@@ -71,6 +91,12 @@ body {
     <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
     <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i><br/>
     <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
+
+    $\gamma=\lim_{n\to\infty}\left(\sum_{k=1}^n\frac1k-ln(n)\right) $
+    <br/>
+    When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
     Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
@@ -80,27 +106,27 @@ body {
     <div class="board">
       <canvas id="canvas_draw" class="draw_canvas" width="600" height="400"></canvas>
       <canvas id="canvas_events" class="events_canvas" width="600" height="400" background="transparent"></canvas>
-      <canvas id="canvas_options" class="options_canvas" width="40" height="40"></canvas>
+      <canvas id="canvas_options" class="options_canvas" width="300" height="40"></canvas>
     </div>
     <div class="elements">
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
-        <input type="checkbox" /> Helyezz el egy pontot <br />
-        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
-        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox"/> Helyezz el egy pontot <br/>
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br/>
+        <input type="checkbox"/> Kösd össze a pontokat <br/>
+        <input type="checkbox"/> Helyezz el egy pontot <br/>
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br/>
+        <input type="checkbox"/> Kösd össze a pontokat <br/>
+        <input type="checkbox"/> Helyezz el egy pontot <br/>
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br/>
+        <input type="checkbox"/> Kösd össze a pontokat <br/>
+        <input type="checkbox"/> Helyezz el egy pontot <br/>
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br/>
+        <input type="checkbox"/> Kösd össze a pontokat <br/>
+        <input type="checkbox"/> Helyezz el egy pontot <br/>
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br/>
+        <input type="checkbox"/> Kösd össze a pontokat <br />
+        <input type="checkbox"/> Helyezz el egy pontot <br />
+        <input type="checkbox"/> Helyezz el egy újabb pontot <br />
+        <input type="checkbox"/> Kösd össze a pontokat <br />
     </div>
   </div>
 </div>
@@ -160,9 +186,11 @@ class Point {
 class Board {
     gelements = [];
     draw_ctx = null;
+    options_ctx = null;
     constructor(container) {
         this.container = container;
         this.draw_ctx = this.container.querySelector("#canvas_draw").getContext("2d");
+        this.options_ctx = this.container.querySelector("#canvas_options").getContext("2d");
     }
 
     draw_func(ctx) {
