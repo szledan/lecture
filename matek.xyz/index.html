@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.text {
+  position: relative;
+  font-family:"Calibri";
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  min-width: 600;
+}
+
+.board {
+  position: relative;
+  min-width: 600;
+}
+
+.elements {
+  border:1px solid #d3d3d3;
+  overflow:scroll;
+  margin-left: 400;
+  height:100%;
+}
+
+.draw_canvas {
+  border:1px solid #d3d3d3;
+  position: relative;
+}
+.events_canvas {
+  border:1px solid #d3d3d3;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.options_canvas {
+  border:1px solid #d3d3d3;
+  position: absolute;
+  top: 10;
+  left: 10;
+  opacity: 0.5;
+}
+
+</style>
+</head>
+
+<body>
+<div id = "text_1" class="text">
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1<br/>
+    á é í ó ö ő ü ű „–” ǎ â ț ș î<br/>
+    Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î<br/>
+    <b>á é í ó ö ő ü ű „–” ǎ â ț ș î</b><br/>
+    <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
+    <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i><br/>
+    <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+</div>
+<div id = "container_1" class="container">
+    <div class="board">
+      <canvas id="canvas_draw" class="draw_canvas" width="400" height="300"></canvas>
+      <canvas id="canvas_events" class="events_canvas" width="400" height="300" background="transparent"></canvas>
+      <canvas id="canvas_options" class="options_canvas" width="40" height="40"></canvas>
+    </div>
+    <div class="elements">
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+        <input type="checkbox" /> Helyezz el egy pontot <br />
+        <input type="checkbox" /> Helyezz el egy újabb pontot <br />
+        <input type="checkbox" /> Kösd össze a pontokat <br />
+    </div>
+  </div>
+</div>
+<div id = "text_2" class="text">
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
+</div>
+
+<script>
+
+class Point {
+    x = 0;
+    y = 0;
+    dragged = false;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    draw(ctx) {
+        let saveLineWidth = ctx.lineWidth;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.strokeStyle = 'gray';
+        ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, 4, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'black';
+        ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.lineWidth = saveLineWidth;
+    }
+}
+
+class Board {
+    gelements = [];
+    draw_ctx = null;
+    constructor(container) {
+        this.container = container;
+        this.draw_ctx = this.container.querySelector("#canvas_draw").getContext("2d");
+    }
+
+    draw_func(ctx) {
+        console.log(this.container);
+    }
+
+    draw() {
+        const ctx = this.draw_ctx;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+
+        ctx.clearRect(0, 0, 400, 300);
+
+        this.draw_func(ctx);
+
+        for(let i = 0; i < this.gelements.length; ++i) {
+            this.gelements[i].draw(ctx);
+        }
+    }
+
+    addEventListener(type, func) {
+        const c = this.container.querySelector("#canvas_events");
+        c.addEventListener(type, func);
+    }
+
+    addPoint(p, dragged) {
+        this.gelements.push(p);
+    }
+}
+
+window.onload = function () {
+    let containers = document.getElementsByClassName("container");
+    let boards = [];
+    for (let i = 0; i < containers.length; ++i) {
+        boards.push(new Board(containers[i]))
+    }
+
+    boards[0].draw_func = function(ctx)
+    {
+        ctx.beginPath();
+        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.stroke();
+    };
+    boards[0].draw();
+    boards[0].addEventListener('mousedown', function (event) {
+        boards[0].addPoint(new Point(event.offsetX, event.offsetY));
+        console.log('mousedown');
+        console.log(event);
+        boards[0].draw();
+    });
+    boards[0].addEventListener('mouseup', function (event) {
+        console.log('mouseup');
+        console.log(event);
+    });
+}
+</script>
+
+</body>
+</html>
