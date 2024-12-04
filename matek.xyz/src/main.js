@@ -205,6 +205,8 @@ window.onload = function () {
         document.body.classList.toggle("latex-dark");
         GOpts.i().isDark = !GOpts.i().isDark;
     });
+    document.body.classList.toggle("latex-dark");
+    GOpts.i().isDark = !GOpts.i().isDark;
 
     let containers = document.getElementsByClassName("container");
     let base_container = document.getElementById('container_1');
