@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="https://latex.vercel.app/style.css">
+
 <!---<script type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>-->
@@ -21,66 +24,88 @@
 </head>
 
 <body>
-<div id="text_1" class="main_text">
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1<br/>
-    á é í ó ö ő ü ű „–” ǎ â ț ș î<br/>
-    Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î<br/>
-    <b>á é í ó ö ő ü ű „–” ǎ â ț ș î</b><br/>
-    <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
-    <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i><br/>
-    <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
 
-    $\gamma=\lim\limits_{n\to\infty}\left(\sum\limits_{k=1}^n\frac{1}{k}-\ln(n)-\sin(n)\right) $
-    <br/>
-    \bf When $a \ne 0$, there are two solutions to $ax^2 + bx + c = 0$ and they are
-    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+<!--<label for="sn-anything" class="sidenote-toggle">⊕</label>
+<input type="checkbox" id="sn-anything" class="sidenote-toggle" />
+<span class="sidenote left"><nav role="navigation" class="toc">-->
+  <button id="dark-mode-toggle">Dark mode</button>
+<!--</span>-->
 
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
-    Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1 Szöveg1
+<header>
+  <h1>Matek.xyz</h1>
+  <p class="author">
+    Ledán Szilárd <br/>
+    2024.
+  </p>
+</header>
+
+<label for="sn-anything" class="sidenote-toggle">⊕</label>
+<input type="checkbox" id="sn-anything" class="sidenote-toggle" />
+<span class="sidenote left"><nav role="navigation" class="toc">
+<h2>Tartalom</h2>
+<ol>
+  <li><a href="#001-a-pont">A <i>pont</i> fogalma</a></li>
+</ol>
+</nav>
+</span>
+
+<div class="abstract">
+  <h2>Absztrakt</h2>
+  <p>
+    A <b>Matek.xyz</b> egy a matematika-oktatáshoz kapcsolódó kísérlet.<br/>
+    Alapfeltevésünk, hogy a matematikai eszközöket gyakorlással lehet elsajátítani.
+    Célunk, hogy ez a gyakorlás legyen gazdag, sokrétű és játékos.
+    Hisszük, hogy a matematika könnyű és élvezetes; csupán magabiztosan kell az eszközeivel bánni.
+    A magabiztosság megteremtésében ígyekszik ez az oldal segítséget adni.
+  </p>
 </div>
+
+<main>
+  <article>
+    <h2 id="001-a-pont">A <i>pont</i> fogalma</h2>
+
+
+  <p>
+    Betűellenőrzés:<br/>
+    á é í ó ö ő ü ű „–” ǎ â ț ș î &nbsp;&nbsp;&nbsp; Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î<br/>
+    <b>á é í ó ö ő ü ű „–” ǎ â ț ș î</b> &nbsp;&nbsp;&nbsp; <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
+    <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i> &nbsp;&nbsp;&nbsp; <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
+  </p>
+  <p>
+    Szövegbe illesztett képlet: $\gamma=\lim\limits_{n\to\infty}\left(\sum\limits_{k=1}^n\frac{1}{k}-\ln(n)-\sin(n)\right) $.
+  </p>
+  <p>
+    Ha $a \ne 0$, Akkor az $ax^2 + bx + c = 0$ egyenletnek két megoldása van. A megoldások pedig:
+    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+  </p>
+
+  <p>
+    Itt lehet kipróbálni a „táblát”:
 <div id="container_1" class="container">
   <div class="board">
     <canvas id="canvas_draw" class="draw_canvas" width="600" height="400"></canvas>
     <canvas id="canvas_events" class="events_canvas" width="600" height="400" background="transparent"></canvas>
     <canvas id="canvas_options" class="options_canvas" width="300" height="40"></canvas>
   </div>
-  <div class="elements">
+  <div id="elements_list" class="elements">
     <!--
     <input type="checkbox"/> Helyezz el egy pontot <br/>
     -->
   </div>
-  </div>
 </div>
-<div id="text_2" class="main_text">
+  </p>
+
+  <p>
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-    Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
-</div>
 <div id="container_2" class="container"></div>
-<div id="text_3" class="main_text">
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-    Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
-</div>
+  </p>
+</article>
+</main>
 
 </body>
 </html>

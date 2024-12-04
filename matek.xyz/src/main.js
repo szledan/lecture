@@ -1,3 +1,28 @@
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
+
 
 function isReal(o) {
     return o && o !== 'null' && o !== 'undefined';
@@ -7,6 +32,19 @@ function isRealTrue(o) {
 }
 function isRealFalse(o) {
     return isReal(o) && o === false;
+}
+
+class GOpts {
+    isDark = false;
+
+    constructor() {
+        if (GOpts._instance) {
+            return GOpts._instance
+        }
+        GOpts._instance = this;
+    }
+
+    static i() { return new GOpts(); }
 }
 
 class Point {
@@ -33,7 +71,7 @@ class Point {
             ctx.stroke();
         } else {
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "#00000080";
+            ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
             ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
             ctx.stroke();
         }
@@ -52,17 +90,25 @@ class Board {
     options_ctx = null;
     events_ctx = null;
     draggedElement = null;
+    elements_list = null;
 
     constructor(container) {
         this.container = container;
         this.draw_ctx = this.container.querySelector("#canvas_draw").getContext("2d");
         this.events_ctx = this.container.querySelector("#canvas_events").getContext("2d");
         this.options_ctx = this.container.querySelector("#canvas_options").getContext("2d");
+        this.elements_list = this.container.querySelector("#elements_list");
 
         const ec = this.events_ctx.canvas;
         ec.addEventListener('mousedown', this.mouseDown.bind(this));
         ec.addEventListener('mousemove', this.mouseMove.bind(this));
         ec.addEventListener('mouseup', this.mouseUp.bind(this));
+
+        const octx = this.options_ctx;
+        octx.strokeStyle = "#d3d3d3";
+        octx.beginPath();
+        octx.roundRect(5, 5, 30, 30, 5);
+        octx.stroke();
     }
 
     checkOver(event) {
@@ -141,12 +187,25 @@ class Board {
     }
 
     addPoint(p, dragged) {
+        const div = document.createElement("div");
+        const checkBox = document.createElement("input");
+        checkBox.type = 'checkbox';
+        div.appendChild(checkBox);
+        div.appendChild(document.createTextNode("Point(" + p.x + ", " + p.y + ")"));
+        div.appendChild(document.createElement("br"));
+        this.elements_list.appendChild(div);
+
         this.gelements.push(p);
         return p;
     }
 }
 
 window.onload = function () {
+    document.querySelector("#dark-mode-toggle").addEventListener('click', () => {
+        document.body.classList.toggle("latex-dark");
+        GOpts.i().isDark = !GOpts.i().isDark;
+    });
+
     let containers = document.getElementsByClassName("container");
     let base_container = document.getElementById('container_1');
     for (let i = 1; i < containers.length; ++i) {

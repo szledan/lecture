@@ -1,21 +1,21 @@
-body {
+/*body {
   text-align: center;
   font-family:"Calibri";
-}
+}*/
 
-.main_text {
+/*.main_text {
   position: relative;
   width: 700px;
   text-align: left;
   padding-left: 30%;
   line-height: 150%;
-}
+}*/
 
 .container {
   position: relative;
   min-width: 800px;
   height: 400px;
-  left: 20%;
+  /*left: 20%;*/
   padding-top: 20px;
   padding-bottom: 20px;
 }
