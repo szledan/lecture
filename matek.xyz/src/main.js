@@ -48,19 +48,55 @@ class GOpts {
     static i() { return new GOpts(); }
 }
 
-class Point {
-    x = 0;
-    y = 0;
+class TypeObject {
+    tname = "";
+    constructor(tname) {
+        this.tname = tname;
+    }
+}
+
+const Types = Object.freeze({
+    NONE:       new TypeObject("Ismeretlen"),
+    POINT:      new TypeObject("Pont"),
+    LINE:       new TypeObject("Egyenes")
+});
+
+class Element {
+    static pointCode = 65;
+    static lineCode = 97;
+
+    etype = Types.NONE;
+    ename = "";
     dragged = false;
     selected = false;
 
+
+    constructor(etype, ename) {
+        this.etype = etype;
+        if (ename) {
+            this.ename = ename;
+        } else {
+            switch (etype) {
+            case Types.POINT: this.ename = String.fromCharCode(Element.pointCode++); break;
+            case Types.LINE: this.ename = String.fromCharCode(Element.lineCode++); break;
+            }
+        }
+    }
+}
+
+class Point extends Element {
+    x = 0;
+    y = 0;
+
     constructor(x, y) {
+        super(Types.POINT);
         this.x = x;
         this.y = y;
+        console.log(this.etype, this.ename);
     }
 
     toString() {
-        return `Pont(${this.x}, ${this.y})`;
+        return `(${this.x}, ${this.y})`;
     }
 
     draw(ctx) {
@@ -99,18 +135,19 @@ class Point {
     }
 }
 
-class Line {
-    p1 = new Point(0, 0);
-    p2 = new Point(1, 1);
-    dragged = false;
+class Line extends Element {
+    p1 = null;
+    p2 = null;
 
     constructor(p1, p2) {
+        super(Types.LINE);
         this.p1 = p1;
         this.p2 = p2;
+        console.log(this.etype, this.ename);
     }
 
     toString() {
-        return `Egyenes(${this.p1}, ${this.p2})`;
+        return `(${this.p1.ename}, ${this.p2.ename})`;
     }
 
     draw(ctx) {
@@ -292,7 +329,6 @@ class Board {
     }
 
     draw_func(ctx) {
-        console.log(this.container);
     }
 
     draw() {
@@ -318,8 +354,9 @@ class Board {
         const div = document.createElement("div");
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
+        checkBox.checked = true;
         div.appendChild(checkBox);
-        div.appendChild(document.createTextNode(p));
+        div.appendChild(document.createTextNode(p.ename + " = " + p.etype.tname + p));
         div.appendChild(document.createElement("br"));
         this.panels.get("elements_list").appendChild(div);
 
@@ -328,14 +365,14 @@ class Board {
     }
 
     addLine(elements) {
-        console.log("addLine");
         let l = new Line(elements[0], elements[1]);
 
         const div = document.createElement("div");
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
+        checkBox.checked = true;
         div.appendChild(checkBox);
-        div.appendChild(document.createTextNode(l));
+        div.appendChild(document.createTextNode(l.ename + " = " + l.etype.tname + l));
         div.appendChild(document.createElement("br"));
         this.panels.get("elements_list").appendChild(div);
 
