@@ -1,3 +1,5 @@
+/* (C) Szilárd Ledán, szledan@gmail.com */
+
 function createCookie(name,value,days) {
     if (days) {
         var date = new Date();
@@ -22,7 +24,6 @@ function readCookie(name) {
 function eraseCookie(name) {
     createCookie(name,"",-1);
 }
-
 
 function isReal(o) {
     return o && o !== 'null' && o !== 'undefined';
@@ -51,6 +52,7 @@ class Point {
     x = 0;
     y = 0;
     dragged = false;
+    selected = false;
 
     constructor(x, y) {
         this.x = x;
@@ -64,7 +66,16 @@ class Point {
     draw(ctx) {
         let saveLineWidth = ctx.lineWidth;
         ctx.beginPath();
-        if (this.dragged) {
+        if (this.selected) {
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "#FFFF00FF";
+            ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.strokeStyle = "#FFFF0080";
+            ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+            ctx.arc(this.x, this.y, 4, 0, 2 * Math.PI);
+            ctx.stroke();
+        } else if (this.dragged) {
             ctx.lineWidth = 1;
             ctx.strokeStyle = "#FFA500FF";
             ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
@@ -147,6 +158,7 @@ class Board {
     events_ctx = null;
 
     draggedElement = null;
+    selectedElements = [];
 
     menu_button = null;
     panels = new Map();
@@ -220,15 +232,24 @@ class Board {
         if (element !== null) {
             this.draggedElement = element;
             this.draggedElement.dragged = true;
+            switch (this.tool_button.id) {
+            case "line_tools_button":
+                this.draggedElement.selected = true;
+                break;
+            }
         } else {
-            if (this.tool_button.id === "point_tools_button") {
+            let isSelected = false;
+            switch (this.tool_button.id) {
+            case "line_tools_button":
+                isSelected = true;
+                /* FALLTHROUGH */
+            case "point_tools_button":
                 this.draggedElement = this.addPoint(new Point(event.offsetX, event.offsetY));
                 this.draggedElement.dragged = true;
+                this.draggedElement.selected = isSelected;
+                break;
             }
         }
-
-        console.log('mousedown');
-        console.log(event);
         this.draw();
     }
 
@@ -245,17 +266,28 @@ class Board {
                 this.events_ctx.canvas.style.cursor = "default";
             }
         }
-        console.log('mousemove');
-        console.log(event);
     }
 
     mouseUp(event) {
         if (isReal(this.draggedElement) && this.draggedElement.dragged === true) {
-            this.draggedElement.dragged = false;
-            this.draggedElement = null;
+            switch (this.tool_button.id) {
+            case "line_tools_button":
+                this.selectedElements.push(this.draggedElement);
+                if (this.selectedElements.length == 2) {
+                    this.addLine(this.selectedElements);
+                    this.selectedElements[0].selected = false;
+                    this.draggedElement.selected = false;
+                    this.selectedElements = [];
+                }
+                /* FALLTHROUGH */
+            case "point_tools_button":
+                /* FALLTHROUGH */
+            default:
+                this.draggedElement.dragged = false;
+                this.draggedElement = null;
+                break;
+            }
         }
-        console.log('mouseup');
-        console.log(event);
         this.draw();
     }
 
@@ -282,7 +314,7 @@ class Board {
         c.addEventListener(type, func);
     }
 
-    addPoint(p, dragged) {
+    addPoint(p) {
         const div = document.createElement("div");
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
@@ -295,17 +327,20 @@ class Board {
         return p;
     }
 
-    addLine(p, dragged) {
+    addLine(elements) {
+        console.log("addLine");
+        let l = new Line(elements[0], elements[1]);
+
         const div = document.createElement("div");
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
         div.appendChild(checkBox);
-        div.appendChild(document.createTextNode(p));
+        div.appendChild(document.createTextNode(l));
         div.appendChild(document.createElement("br"));
-        this.elements_list.appendChild(div);
+        this.panels.get("elements_list").appendChild(div);
 
-        this.gelements.push(p);
-        return p;
+        this.gelements.push(l);
+        return l;
     }
 }
 
