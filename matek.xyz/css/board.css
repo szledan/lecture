@@ -1,41 +1,110 @@
+
+:root{
+  --container-bg-color: #e0e0e0;
+  --button-bg-color: #efefef;
+  --button-color: #333;
+  --button-border-color: #333;
+  --button-hover-border-color: blue;
+  --button-focus-bg-color: #afafff;
+}
+
+.latex-dark {
+  --container-bg-color: #333;
+  --button-bg-color: #555;
+  --button-color: #ccc;
+  --button-border-color: #ccc;
+  --button-hover-border-color: darkblue;
+  --button-focus-bg-color: #5f5faf;
+}
+
 .container {
   position: relative;
-  min-width: 800px;
-  height: 400px;
+  width: 100%;
+  height: 300px;
+  margin: 10px 0px 10px 0px;
+  background-color: var(--container-bg-color);
 }
 
 .board {
+  border: 1px solid #d3d3d3;
   position: relative;
-  min-width: 600px;
+  height: 100%;
+  width: 60%;
+  float: left;
 }
 
-.elements {
-  border:1px solid #d3d3d3;
-  position: absolute;
-  top: 41px;
-  left: 601px;
-  overflow: scroll;
-  text-align: left;
-  height: 361px;
-  width: 302px;
+.controller {
+  position: relative;
+  height: 100%;
+  width: 40%;
+  float:right;
 }
+
+.menu {
+  border: 1px solid #d3d3d3;
+  position: relative;
+  height: 50px;
+  padding: 5px 5px 5px 5px;
+  overflow: auto;
+}
+.menu_button {
+  font: inherit;
+  text-align: center;
+  margin: 0px 0px 0px 0px;
+  height: 100%;
+}
+.tools_button {
+  font: inherit;
+  text-align: center;
+  margin: 5px 5px 5px 5px;
+}
+
+button {
+  background-color: var(--button-bg-color);
+  color: var(--button-color);
+  border-radius: 5px;
+  border: 1px solid var(--button-border-color);
+  min-width: 35px;
+  min-height: 35px;
+}
+button:hover {
+  border: 1px solid var(--button-hover-border-color);
+}
+
+button:focus {
+  border: 1px solid var(--button-hover-border-color);
+  background-color: var(--button-focus-bg-color);
+}
+
+.panel {
+  border: 1px solid #d3d3d3;
+  position: absolute;
+  overflow: auto;
+  text-align: left;
+  top: 49px;
+  left: 0px;
+  height: calc(100% - 49px);
+  width: 100%;
+}
+/*
+.elements {
+  border: 1px solid #d3d3d3;
+  position: relative;
+  overflow: auto;
+  text-align: left;
+  margin-top: -1px;
+  height: calc(100% - 49px);
+  width: 100%;
+}
+*/
 
 .draw_canvas {
-  border:1px solid #d3d3d3;
   position: absolute;
   top: 0px;
   left: 0px;
 }
 .events_canvas {
-  border:1px solid #d3d3d3;
   position: absolute;
   top: 0px;
   left: 0px;
-}
-.options_canvas {
-  border:1px solid #d3d3d3;
-  position: absolute;
-  top: 0px;
-  left: 601px;
-  /*opacity: 0.5;*/
 }

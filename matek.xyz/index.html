@@ -7,6 +7,7 @@
 body {
   max-width: 100ch;
 }
+
 .abstract,
 .abstract p {
   text-align: left;
@@ -37,7 +38,8 @@ body {
 
 <body>
 
-<button id="dark-mode-toggle">🌓︎</button>
+<button id="dark-mode-toggle" title="Váltás világos és sötét megjelenés között.">🌓︎</button>
+<button id="settings_button" title="Beállítások">☰</button>
 
 <header>
   <h1>Matek.xyz</h1>
@@ -47,7 +49,7 @@ body {
   </p>
 </header>
 
-<label for="sn-anything" class="sidenote-toggle">⊕</label>
+<label for="sn-anything" class="sidenote-toggle">≣</label>
 <input type="checkbox" id="sn-anything" class="sidenote-toggle" />
 <span class="sidenote left">
   <nav role="navigation" class="toc">
@@ -93,14 +95,24 @@ body {
     Itt lehet kipróbálni a „táblát”:
 <div id="container_1" class="container">
   <div class="board">
-    <canvas id="canvas_draw" class="draw_canvas" width="600" height="400"></canvas>
-    <canvas id="canvas_events" class="events_canvas" width="600" height="400" background="transparent"></canvas>
-    <canvas id="canvas_options" class="options_canvas" width="300" height="40"></canvas>
+    <canvas id="canvas_draw" class="draw_canvas" width="100" height="100"></canvas>
+    <canvas id="canvas_events" class="events_canvas" width="100" height="100" background="transparent"></canvas>
   </div>
-  <div id="elements_list" class="elements">
-    <!--
-    <input type="checkbox"/> Helyezz el egy pontot <br/>
-    -->
+  <div class="controller">
+    <div class="menu">
+      <button id="tools_chooser_button" title="Eszközök" class="menu_button" type="button" data-panel="tools_chooser">🖉</button>
+      <button id="elements_list_button" title="Elemlista" class="menu_button" type="button" data-panel="elements_list">🗏</button>
+      <button id="board_settings_button" class="menu_button" title="Beállítások" type="button" data-panel="board_settings"><b>⚙</b></button>
+    </div>
+    <div id="tools_chooser" class="panel">
+      <button id="pointer_button" title="Mancs" class="tools_button" type="button">👆</button>
+      <button id="point_tools_button" title="Pont" class="tools_button" type="button">·</button>
+      <button id="line_tools_button" title="Egyenes" class="tools_button" type="button">/</button>
+    </div>
+    <div id="elements_list" class="panel" style="visibility: hidden;">
+    </div>
+    <div id="board_settings" class="panel" style="visibility: hidden;">
+    </div>
   </div>
 </div>
   Ez a szöveg a táblázat után van.
