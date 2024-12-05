@@ -57,6 +57,10 @@ class Point {
         this.y = y;
     }
 
+    toString() {
+        return `Pont(${this.x}, ${this.y})`;
+    }
+
     draw(ctx) {
         let saveLineWidth = ctx.lineWidth;
         ctx.beginPath();
@@ -73,6 +77,55 @@ class Point {
             ctx.lineWidth = 2;
             ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
             ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+        ctx.lineWidth = saveLineWidth;
+    }
+
+    checkOver(event) {
+        return (Math.abs(this.x - event.offsetX) < 3
+                && Math.abs(this.y - event.offsetY) < 3) ? this : null;
+    }
+}
+
+class Line {
+    p1 = new Point(0, 0);
+    p2 = new Point(1, 1);
+    dragged = false;
+
+    constructor(p1, p2) {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
+
+    toString() {
+        return `Egyenes(${this.p1}, ${this.p2})`;
+    }
+
+    draw(ctx) {
+        let saveLineWidth = ctx.lineWidth;
+        ctx.beginPath();
+        if (this.dragged) {
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#FFA50080";
+            ctx.moveTo(this.p1.x, this.p1.y);
+            ctx.lineTo(this.p2.x, this.p2.y);
+            ctx.stroke();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#FFA500FF";
+            ctx.moveTo(this.p1.x, this.p1.y);
+            ctx.lineTo(this.p2.x, this.p2.y);
+            ctx.stroke();
+        } else {
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
+            ctx.moveTo(this.p1.x, this.p1.y);
+            ctx.lineTo(this.p2.x, this.p2.y);
+            ctx.stroke();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
+            ctx.moveTo(this.p1.x, this.p1.y);
+            ctx.lineTo(this.p2.x, this.p2.y);
             ctx.stroke();
         }
         ctx.lineWidth = saveLineWidth;
@@ -191,7 +244,20 @@ class Board {
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
         div.appendChild(checkBox);
-        div.appendChild(document.createTextNode("Point(" + p.x + ", " + p.y + ")"));
+        div.appendChild(document.createTextNode(p));
+        div.appendChild(document.createElement("br"));
+        this.elements_list.appendChild(div);
+
+        this.gelements.push(p);
+        return p;
+    }
+
+    addLine(p, dragged) {
+        const div = document.createElement("div");
+        const checkBox = document.createElement("input");
+        checkBox.type = 'checkbox';
+        div.appendChild(checkBox);
+        div.appendChild(document.createTextNode(p));
         div.appendChild(document.createElement("br"));
         this.elements_list.appendChild(div);
 
