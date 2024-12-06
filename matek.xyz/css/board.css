@@ -61,6 +61,7 @@
 }
 
 svg {
+  display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
@@ -72,6 +73,7 @@ button {
   border: 1px solid var(--button-border-color);
   min-width: 35px;
   min-height: 35px;
+  display: inline-block;
   vertical-align: middle;
   text-align: center;
   padding: 0;
