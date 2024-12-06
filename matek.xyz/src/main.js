@@ -35,8 +35,23 @@ function isRealFalse(o) {
     return isReal(o) && o === false;
 }
 
+function addListElemToMap(m, k, v) {
+    if (m.has(k)) { m.get(k).push(v); } else {m.set(k, [v]); }
+}
+
+function nameGenerator(count, length, offset) {
+    let n = "";
+    while (count >= length) {
+        n = String.fromCharCode(offset + count % length) + n;
+        count = count / length - 1;
+    }
+    n = String.fromCharCode(offset + count % length) + n;
+    return n;
+}
+
 class GOpts {
     isDark = false;
+    activeContainer = null;
 
     constructor() {
         if (GOpts._instance) {
@@ -58,18 +73,23 @@ class TypeObject {
 const Types = Object.freeze({
     NONE:       new TypeObject("Ismeretlen"),
     POINT:      new TypeObject("Pont"),
-    LINE:       new TypeObject("Egyenes")
+    LINE:       new TypeObject("Egyenes"),
+    SEGMENT:    new TypeObject("Szakasz"),
 });
 
 class Element {
-    static pointCode = 65;
-    static lineCode = 97;
+    static HIT_RANGE = 5;
+    static pointCode = 0;
+    static lineCode = 0;
 
     etype = Types.NONE;
     ename = "";
+
+    show = true;
     dragged = false;
     selected = false;
 
+    listeners = new Map();
 
     constructor(etype, ename) {
         this.etype = etype;
@@ -77,10 +97,19 @@ class Element {
             this.ename = ename;
         } else {
             switch (etype) {
-            case Types.POINT: this.ename = String.fromCharCode(Element.pointCode++); break;
-            case Types.LINE: this.ename = String.fromCharCode(Element.lineCode++); break;
+            case Types.POINT: this.ename = nameGenerator(Element.pointCode++, 26, 65); break;
+            case Types.LINE: this.ename = nameGenerator(Element.lineCode++, 26, 97); break;
+            case Types.SEGMENT: this.ename = nameGenerator(Element.lineCode++, 26, 97); break;
             }
         }
+    }
+
+    addCallback(mode, callback) {
+        addListElemToMap(this.listeners, mode, callback);
+    }
+
+    onMove() {
+        this.listeners.get("move").forEach((e) => { e(this); });
     }
 }
 
@@ -92,7 +121,6 @@ class Point extends Element {
         super(Types.POINT);
         this.x = x;
         this.y = y;
-        console.log(this.etype, this.ename);
     }
 
     toString() {
@@ -100,6 +128,10 @@ class Point extends Element {
     }
 
     draw(ctx) {
+        if (!this.show) {
+            return;
+        }
+
         let saveLineWidth = ctx.lineWidth;
         ctx.beginPath();
         if (this.selected) {
@@ -130,20 +162,97 @@ class Point extends Element {
     }
 
     checkOver(event) {
-        return (Math.abs(this.x - event.offsetX) < 3
-                && Math.abs(this.y - event.offsetY) < 3) ? this : null;
+        return (this.show
+            && Math.abs(this.x - event.offsetX) < Element.HIT_RANGE
+            && Math.abs(this.y - event.offsetY) < Element.HIT_RANGE) ? this : null;
     }
 }
 
 class Line extends Element {
     p1 = null;
     p2 = null;
+    x1 = 0.0;
+    y1 = 0.0;
+    x2 = 1.0;
+    y2 = 1.0;
 
     constructor(p1, p2) {
         super(Types.LINE);
         this.p1 = p1;
         this.p2 = p2;
-        console.log(this.etype, this.ename);
+    }
+
+    toString() {
+        return `(${this.p1.ename}, ${this.p2.ename})`;
+    }
+
+    recalcLine() {
+        let w = 10000;
+        let h = 10000;
+        let dx = this.p2.x - this.p1.x;
+        let dy = this.p2.y - this.p1.y;
+        if (Math.abs(dx) < 1e-9) {
+            this.x1 = this.p1.x;
+            this.y1 = 0;
+            this.x2 = this.x1;
+            this.y2 = h;
+        } else {
+            let m = dy / dx;
+            this.x1 = 0;
+            this.y1 = m * (0 - this.p1.x) + this.p1.y;
+            this.x2 = w;
+            this.y2 = m * (h - this.p1.x) + this.p1.y;
+        }
+    }
+
+    draw(ctx) {
+        if (!this.show) {
+            return;
+        }
+
+        this.recalcLine();
+
+        let saveLineWidth = ctx.lineWidth;
+        ctx.beginPath();
+        if (this.dragged) {
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#FFA50080";
+            ctx.moveTo(this.x1, this.y1);
+            ctx.lineTo(this.x2, this.y2);
+            ctx.stroke();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#FFA500FF";
+            ctx.moveTo(this.x1, this.y1);
+            ctx.lineTo(this.x2, this.y2);
+            ctx.stroke();
+        } else {
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
+            ctx.moveTo(this.x1, this.y1);
+            ctx.lineTo(this.x2, this.y2);
+            ctx.stroke();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = GOpts.i().isDark ? "#FFFFFF80" : "#00000080";
+            ctx.moveTo(this.x1, this.y1);
+            ctx.lineTo(this.x2, this.y2);
+            ctx.stroke();
+        }
+        ctx.lineWidth = saveLineWidth;
+    }
+
+    checkOver(event) {
+        return null; // TODO
+    }
+}
+
+class Segment extends Element {
+    p1 = null;
+    p2 = null;
+
+    constructor(p1, p2) {
+        super(Types.SEGMENT);
+        this.p1 = p1;
+        this.p2 = p2;
     }
 
     toString() {
@@ -151,6 +260,10 @@ class Line extends Element {
     }
 
     draw(ctx) {
+        if (!this.show) {
+            return;
+        }
+
         let saveLineWidth = ctx.lineWidth;
         ctx.beginPath();
         if (this.dragged) {
@@ -180,8 +293,7 @@ class Line extends Element {
     }
 
     checkOver(event) {
-        return (Math.abs(this.x - event.offsetX) < 3
-                && Math.abs(this.y - event.offsetY) < 3) ? this : null;
+        return null; // TODO
     }
 }
 
@@ -204,6 +316,7 @@ class Board {
     tools = new Map();
 
     settings = null;
+    keys = new Map();
 
     constructor(container) {
         this.container = container;
@@ -226,7 +339,11 @@ class Board {
         this.panels.set("board_settings", this.container.querySelector("#board_settings"));
         let _menu_buttons = this.container.querySelectorAll(".menu_button");
         _menu_buttons.forEach((e) => {
+            if (e.dataset.key !== null) {
+                this.keys.set(e.dataset.key, e);
+            }
             e.addEventListener('click', () => {
+                GOpts.i().activeContainer = this;
                 if (this.menu_button !== null) {
                     this.menu_button.style.backgroundColor = "var(--button-bg-color)";
                     this.panels.get(this.menu_button.dataset.panel).style.visibility = 'hidden';
@@ -242,7 +359,11 @@ class Board {
 
         let _tools_buttons = this.panels.get("tools_chooser").querySelectorAll(".tools_button");
         _tools_buttons.forEach((e) => {
+           if (e.dataset.key !== null) {
+               this.keys.set(e.dataset.key, e);
+           }
             e.addEventListener('click', () => {
+                GOpts.i().activeContainer = this;
                 if (this.tool_button !== null) {
                     this.tool_button.style.backgroundColor = "var(--button-bg-color)";
                 }
@@ -270,6 +391,7 @@ class Board {
             this.draggedElement = element;
             this.draggedElement.dragged = true;
             switch (this.tool_button.id) {
+            case "segment_tools_button":
             case "line_tools_button":
                 this.draggedElement.selected = true;
                 break;
@@ -277,6 +399,7 @@ class Board {
         } else {
             let isSelected = false;
             switch (this.tool_button.id) {
+            case "segment_tools_button":
             case "line_tools_button":
                 isSelected = true;
                 /* FALLTHROUGH */
@@ -294,6 +417,7 @@ class Board {
         if (isReal(this.draggedElement) && this.draggedElement.dragged === true) {
             this.draggedElement.x = event.offsetX;
             this.draggedElement.y = event.offsetY;
+            this.draggedElement.onMove();
             this.draw();
         } else {
             let element = this.checkOver(event);
@@ -303,11 +427,14 @@ class Board {
                 this.events_ctx.canvas.style.cursor = "default";
             }
         }
+        GOpts.i().activeContainer = this;
     }
 
     mouseUp(event) {
         if (isReal(this.draggedElement) && this.draggedElement.dragged === true) {
             switch (this.tool_button.id) {
+            case "point_tools_button":
+                break;
             case "line_tools_button":
                 this.selectedElements.push(this.draggedElement);
                 if (this.selectedElements.length == 2) {
@@ -316,16 +443,22 @@ class Board {
                     this.draggedElement.selected = false;
                     this.selectedElements = [];
                 }
-                /* FALLTHROUGH */
-            case "point_tools_button":
-                /* FALLTHROUGH */
-            default:
-                this.draggedElement.dragged = false;
-                this.draggedElement = null;
+                break;
+            case "segment_tools_button":
+                this.selectedElements.push(this.draggedElement);
+                if (this.selectedElements.length == 2) {
+                    this.addSegment(this.selectedElements);
+                    this.selectedElements[0].selected = false;
+                    this.draggedElement.selected = false;
+                    this.selectedElements = [];
+                }
                 break;
             }
+            this.draggedElement.dragged = false;
+            this.draggedElement = null;
         }
         this.draw();
+        GOpts.i().activeContainer = this;
     }
 
     draw_func(ctx) {
@@ -355,10 +488,15 @@ class Board {
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
         checkBox.checked = true;
+        checkBox.addEventListener('change', function() { p.show = this.checked; });
         div.appendChild(checkBox);
-        div.appendChild(document.createTextNode(p.ename + " = " + p.etype.tname + p));
+        const textNode = document.createTextNode(p.ename + " = " + p.etype.tname + p);
+        div.appendChild(textNode);
         div.appendChild(document.createElement("br"));
         this.panels.get("elements_list").appendChild(div);
+        this.panels.get("elements_list").scroll({ top: this.panels.get("elements_list").scrollHeight, behavior: 'smooth' });
+
+        p.addCallback("move", (e) => { textNode.nodeValue = e.ename + " = " + e.etype.tname + e; });
 
         this.gelements.push(p);
         return p;
@@ -371,15 +509,36 @@ class Board {
         const checkBox = document.createElement("input");
         checkBox.type = 'checkbox';
         checkBox.checked = true;
+        checkBox.addEventListener('change', function() { l.show = this.checked; });
         div.appendChild(checkBox);
         div.appendChild(document.createTextNode(l.ename + " = " + l.etype.tname + l));
         div.appendChild(document.createElement("br"));
         this.panels.get("elements_list").appendChild(div);
+        this.panels.get("elements_list").scroll({ top: this.panels.get("elements_list").scrollHeight, behavior: 'smooth' });
 
         this.gelements.push(l);
         return l;
     }
+
+    addSegment(elements) {
+        let s = new Segment(elements[0], elements[1]);
+
+        const div = document.createElement("div");
+        const checkBox = document.createElement("input");
+        checkBox.type = 'checkbox';
+        checkBox.checked = true;
+        checkBox.addEventListener('change', function() { s.show = this.checked; });
+        div.appendChild(checkBox);
+        div.appendChild(document.createTextNode(s.ename + " = " + s.etype.tname + s));
+        div.appendChild(document.createElement("br"));
+        this.panels.get("elements_list").appendChild(div);
+        this.panels.get("elements_list").scroll({ top: this.panels.get("elements_list").scrollHeight, behavior: 'smooth' });
+
+        this.gelements.push(s);
+        return s;
+    }
 }
+
 
 window.onload = function () {
     document.querySelector("#dark-mode-toggle").addEventListener('click', () => {
@@ -401,6 +560,13 @@ window.onload = function () {
         boards.push(new Board(containers[i]))
     }
 
+    document.body.addEventListener('keyup', function (e) {
+        if (GOpts.i().activeContainer !== null && GOpts.i().activeContainer.keys.has(e.key)) {
+            GOpts.i().activeContainer.keys.get(e.key).click();
+        }
+    });
+
+
     boards[0].draw_func = function(ctx)
     {
         ctx.beginPath();
@@ -409,14 +575,4 @@ window.onload = function () {
         ctx.stroke();
     };
     boards[0].draw();
-    /*boards[0].addEventListener('mousedown', function (event) {
-        boards[0].addPoint(new Point(event.offsetX, event.offsetY));
-        console.log('mousedown');
-        console.log(event);
-        boards[0].draw();
-    });
-    boards[0].addEventListener('mouseup', function (event) {
-        console.log('mouseup');
-        console.log(event);
-    });*/
 }

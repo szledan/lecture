@@ -91,6 +91,9 @@ body {
     $$x_{1,2} = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
   </p>
 
+    (y2-y1)⋅(x-x1)=(x2-x1)⋅(y-y1).
+    y = dy / dx (x-x1) + y1
+
   <p>
     Itt lehet kipróbálni a „táblát”:
 <div id="container_1" class="container">
@@ -100,15 +103,56 @@ body {
   </div>
   <div class="controller">
     <div class="menu">
-      <button id="tools_chooser_button" title="Eszközök" class="menu_button" type="button" data-panel="tools_chooser">🖉</button>
-      <button id="elements_list_button" title="Elemlista" class="menu_button" type="button" data-panel="elements_list">🗏</button>
-      <button id="board_settings_button" class="menu_button" title="Beállítások" type="button" data-panel="board_settings"><b>⚙</b></button>
+      <button id="tools_chooser_button" title="Eszközök" class="menu_button" type="button" data-panel="tools_chooser" data-key="q">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">🖉</text>
+          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">q</text>
+        </svg>
+      </button>
+      <button id="elements_list_button" title="Elemlista" class="menu_button" type="button" data-panel="elements_list" data-key="w">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">🗏</text>
+          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">w</text>
+        </svg>
+      </button>
+      <button id="board_settings_button" class="menu_button" title="Beállítások" type="button" data-panel="board_settings" data-key="e">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="40" font-family="monospace" fill="var(--button-border-color)">⚙</text>
+          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">e</text>
+        </svg>
+      </button>
     </div>
     <div id="tools_chooser" class="panel">
-      <button id="pointer_button" title="Mancs" class="tools_button" type="button">👆</button>
+      <button id="pointer_button" title="Mancs" class="tools_button" type="button" data-key="a">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">👆</text>
+          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">a</text>
+        </svg>
+      </button>
       <br/>
-      <button id="point_tools_button" title="Pont" class="tools_button" type="button">·</button>
-      <button id="line_tools_button" title="Egyenes" class="tools_button" type="button">/</button>
+      <button id="point_tools_button" title="Pont" class="tools_button" type="button" data-key="1">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="25" cy="25" r="3" stroke="#00aa00" fill="#00000000" stroke-width="3" />
+          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">1</text>
+        </svg>
+      </button>
+      <br/>
+      <button id="line_tools_button" title="Egyenes" class="tools_button" type="button" data-key="2">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 45 L45 5" style="fill:none; stroke:#00aa00;stroke-width:3" />
+          <circle cx="14" cy="36" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+          <circle cx="36" cy="14" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">2</text>
+        </svg>
+      </button>
+      <button id="segment_tools_button" title="Szakasz" class="tools_button" type="button" data-key="3">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 38 L35 12" style="fill:none; stroke:#00aa00;stroke-width:3" />
+          <circle cx="12" cy="38" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+          <circle cx="35" cy="12" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">3</text>
+        </svg>
+      </button>
     </div>
     <div id="elements_list" class="panel" style="visibility: hidden;">
     </div>

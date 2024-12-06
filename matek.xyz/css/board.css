@@ -60,6 +60,11 @@
   width: 100%;
 }
 
+svg {
+  vertical-align: middle;
+  text-align: center;
+}
+
 button {
   background-color: var(--button-bg-color);
   color: var(--button-color);
@@ -67,6 +72,9 @@ button {
   border: 1px solid var(--button-border-color);
   min-width: 35px;
   min-height: 35px;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
 }
 button:hover {
   border: 1px solid var(--button-hover-border-color);
