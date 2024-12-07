@@ -329,10 +329,14 @@ class Board {
         this.events_ctx.canvas.width = _b.clientWidth;
         this.events_ctx.canvas.height = _b.clientHeight;
 
+        document.getElementById('test1').innerHTML += "container";
         const _ec = this.events_ctx.canvas;
         _ec.addEventListener('mousedown', this.mouseDown.bind(this));
         _ec.addEventListener('mousemove', this.mouseMove.bind(this));
         _ec.addEventListener('mouseup', this.mouseUp.bind(this));
+        _ec.addEventListener('touchstart', () => { document.getElementById('test1').innerHTML += "touchstart"; });
+        _ec.addEventListener('touchmove', () => { document.getElementById('test1').innerHTML += "touchmove"; });
+        _ec.addEventListener('touchend', () => { document.getElementById('test1').innerHTML += "touchend"; });
 
         this.panels.set("tools_chooser", this.container.querySelector("#tools_chooser"));
         this.panels.set("elements_list", this.container.querySelector("#elements_list"));
