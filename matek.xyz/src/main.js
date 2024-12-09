@@ -329,7 +329,6 @@ class Board {
         this.events_ctx.canvas.width = _b.clientWidth;
         this.events_ctx.canvas.height = _b.clientHeight;
 
-        document.getElementById('test1').innerHTML += "container";
         const _ec = this.events_ctx.canvas;
         _ec.addEventListener('mousedown', this.mouseDown.bind(this));
         _ec.addEventListener('mousemove', this.mouseMove.bind(this));
@@ -337,6 +336,19 @@ class Board {
         _ec.addEventListener('touchstart', () => { document.getElementById('test1').innerHTML += "touchstart"; });
         _ec.addEventListener('touchmove', () => { document.getElementById('test1').innerHTML += "touchmove"; });
         _ec.addEventListener('touchend', () => { document.getElementById('test1').innerHTML += "touchend"; });
+
+        this.container.querySelector("#main_menu_checkbox").addEventListener('click', (e) => {
+            this.container.querySelector("#main_menu_panel").style.display =
+            this.container.querySelector("#main_menu_checkbox").checked ? "block" : "none";
+            this.container.querySelector("#main_menu_button").style.opacity =
+            this.container.querySelector("#main_menu_checkbox").checked ? "100%" : "25%";
+        });
+        this.container.querySelector("#main_menu_panel").style.display =
+        this.container.querySelector("#main_menu_checkbox").checked ? "block" : "none";
+        let _main_menu_button = this.container.querySelector("#main_menu_button");
+        if (_main_menu_button.dataset.key !== null) {
+            this.keys.set(_main_menu_button.dataset.key, this.container.querySelector("#main_menu_checkbox"));
+        }
 
         this.panels.set("tools_chooser", this.container.querySelector("#tools_chooser"));
         this.panels.set("elements_list", this.container.querySelector("#elements_list"));
@@ -573,9 +585,30 @@ window.onload = function () {
 
     boards[0].draw_func = function(ctx)
     {
+        let w = ctx.canvas.width;
+        let h = ctx.canvas.height;
         ctx.beginPath();
-        ctx.strokeStyle = 'blue';
-        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.moveTo(0, h / 2);
+        ctx.lineTo(w, h / 2);
+        ctx.strokeStyle = 'grey';
+        ctx.setLineDash([5, 15]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(w / 4, 0);
+        ctx.lineTo(w / 4, h);
+        ctx.strokeStyle = 'grey';
+        ctx.setLineDash([5, 15]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        let s = w / 15;
+        ctx.moveTo(s, h / 2 + 1 / (s / 200.0) * 20.0 * Math.sin(-10 + s / 20.0));
+        for (let i = s; i < (w - s); ++i) {
+            ctx.lineTo(i, h / 2 + 1 / (i / 200.0) * 20.0 * Math.sin(-10 + i / 20.0));
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = 'green';
         ctx.stroke();
     };
     boards[0].draw();

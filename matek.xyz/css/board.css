@@ -27,41 +27,58 @@
 }
 
 .board {
-  border: 1px solid #d3d3d3;
+  border: 0px solid #d3d3d3;
   position: relative;
   height: 100%;
-  width: 60%;
+  width: 100%;
   float: left;
 }
 
 .controller {
-  position: relative;
+  position: absolute;
+  top: 0px;
+  right: 0px;
   height: 100%;
-  width: 40%;
-  float: right;
+  min-width: 200px;
 }
 
 .menu {
-  border: 1px solid #d3d3d3;
-  position: relative;
+  border: 0px solid #d3d3d3;
+  position: absolute;
+  overflow: auto;
+  top: 0px;
+  right: 50px;
   height: 50px;
   padding: 5px 5px 5px 5px;
-  overflow: auto;
+  margin: 0px;
+  float: right;
+  display: flex;
 }
 
 .panel {
   border: 1px solid #d3d3d3;
+  border-radius: 5px;
   position: absolute;
   overflow: auto;
   text-align: left;
   top: 49px;
-  left: 0px;
+  right: 0px;
   height: calc(100% - 49px);
-  width: 100%;
+  min-width: 200px;
+  background-color: #00000022;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tools_panel {
+  padding: 5px 5px 5px 5px;
+  display: flex;
+  overflow: auto;
 }
 
 svg {
-  display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
@@ -71,12 +88,14 @@ button {
   color: var(--button-color);
   border-radius: 5px;
   border: 1px solid var(--button-border-color);
+  width: 35px;
+  height: 35px;
   min-width: 35px;
   min-height: 35px;
-  display: inline-block;
   vertical-align: middle;
   text-align: center;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 button:hover {
   border: 1px solid var(--button-hover-border-color);
@@ -89,13 +108,62 @@ button:focus {
 .menu_button {
   font: inherit;
   text-align: center;
-  margin: 0px 0px 0px 0px;
-  height: 100%;
+  margin: 0px 0px 0px 5px;
 }
+
 .tools_button {
   font: inherit;
   text-align: center;
+  margin: 0px 5px 0px 0px;
+}
+
+.checkbox-button {
+  background-color: var(--button-bg-color);
+  color: var(--button-color);
+  border-radius: 5px;
+  border: 1px solid var(--button-border-color);
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  min-height: 35px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  overflow:auto;
+  float: left;
+  cursor: pointer;
+}
+.checkbox-button label svg {
+  width:100%;
+  height:100%;
+}
+.checkbox-button input {
+  position:absolute;
+  top:-20px;
+  display:none;
+}
+.checkbox-button:hover {
+  border: 1px solid var(--button-hover-border-color);
+}
+.checkbox-button input:checked {
+  border: 1px solid var(--button-hover-border-color);
+}
+.checkbox-button input:checked + svg {
+  background-color: var(--button-focus-bg-color);
+}
+
+#main_menu_button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   margin: 5px 5px 5px 5px;
+}
+#main_menu_button {
+  opacity: 25%;
+}
+#main_menu_button:hover{
+  opacity: 100%;
 }
 
 .draw_canvas {

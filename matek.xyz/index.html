@@ -2,6 +2,9 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8"/>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+
 <link rel="stylesheet" href="https://latex.vercel.app/style.css">
 <style>
 body {
@@ -34,6 +37,25 @@ body {
 
 <link rel="stylesheet" href="./css/board.css">
 <script src="./src/main.js"></script>
+
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+<script>
+    var ggbApp = new GGBApplet({
+        "appName": "geometry",
+        "width": 600,
+        "height": 300,
+        "showToolBar": true,
+        "showAlgebraInput": false,
+        "showMenuBar": true,
+        "language": "hu",
+        "editorBackground-Color": "#333333",
+        "editorForeground-Color": "#333333"
+        }, true);
+    ggbApp
+    window.addEventListener("load", function() {
+        ggbApp.inject('ggb-element');
+    });
+</script>
 </head>
 
 <body>
@@ -76,13 +98,6 @@ body {
   <article class="indent-pars">
     <h2 id="001-a-pont">A <i>pont</i> fogalma</h2>
 
-
-  <p>
-    Betűellenőrzés:<br/>
-    á é í ó ö ő ü ű „–” ǎ â ț ș î &nbsp;&nbsp;&nbsp; Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î<br/>
-    <b>á é í ó ö ő ü ű „–” ǎ â ț ș î</b> &nbsp;&nbsp;&nbsp; <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
-    <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i> &nbsp;&nbsp;&nbsp; <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
-  </p>
   <p>
     Szövegbe illesztett képlet: $\gamma=\lim\limits_{n\to\infty}\left(\sum\limits_{k=1}^n\frac{1}{k}-\ln(n)-\sin(n)\right) $.
   </p>
@@ -103,65 +118,78 @@ body {
     <canvas id="canvas_draw" class="draw_canvas" width="100" height="100"></canvas>
     <canvas id="canvas_events" class="events_canvas" width="100" height="100" background="transparent"></canvas>
   </div>
-  <div class="controller">
+  <div id="main_menu_panel" class="controller">
     <div class="menu">
       <button id="tools_chooser_button" title="Eszközök" class="menu_button" type="button" data-panel="tools_chooser" data-key="q">
         <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
           <path fill-opacity="0.2" style="fill:var(--button-border-color); stroke:var(--button-border-color);stroke-width:2" d="M11.9 38.3 19.9 34.3 39.9 14.3V11.1L37.5 8.7H34.3L14.3 28.7 10.3 36.7Z"/>
           <path style="fill:none; stroke:var(--button-border-color);stroke-width:1" d="M39.9 11.1 19.9 31.1M17.5 28.7 37.5 8.7M19.9 34.3V31.1L17.5 28.7H14.3"/>
-          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">q</text>
+          <text x="45" y="45" text-anchor="end" font-size="11" font-family="monospace" fill="var(--button-border-color)">q</text>
         </svg>
       </button>
       <button id="elements_list_button" title="Elemlista" class="menu_button" type="button" data-panel="elements_list" data-key="w">
         <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
           <path fill-opacity="0.2" style="fill:var(--button-border-color); stroke:var(--button-border-color);stroke-width:2" d="M14 10 36 10 36 37 14 37Z"/>
           <path style="fill:none; stroke:var(--button-hover-border-color);stroke-width:1" d="M16 14 18 14 M20 14 34 14  M16 18 18 18M20 18 34 18  M16 22 18 22M20 22 34 22  M16 26 18 26M20 26 34 26"/>
-          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">w</text>
+          <text x="45" y="45" text-anchor="end" font-size="11" font-family="monospace" fill="var(--button-border-color)">w</text>
         </svg>
       </button>
       <button id="board_settings_button" class="menu_button" title="Beállítások" type="button" data-panel="board_settings" data-key="e">
         <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
           <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="40" font-family="monospace" fill="var(--button-border-color)">⚙</text>
-          <text x="40" y="45" font-size="11" font-family="monospace" fill="var(--button-border-color)">e</text>
+          <text x="45" y="45" text-anchor="end" font-size="11" font-family="monospace" fill="var(--button-border-color)">e</text>
         </svg>
       </button>
     </div>
     <div id="tools_chooser" class="panel">
-      <button id="pointer_button" title="Mancs" class="tools_button" type="button" data-key="a">
-        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">👆</text>
-          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">a</text>
-        </svg>
-      </button>
-      <br/>
-      <button id="point_tools_button" title="Pont" class="tools_button" type="button" data-key="1">
-        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="25" cy="25" r="3" stroke="#00aa00" fill="#00000000" stroke-width="3" />
-          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">1</text>
-        </svg>
-      </button>
-      <br/>
-      <button id="line_tools_button" title="Egyenes" class="tools_button" type="button" data-key="2">
-        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 45 L45 5" style="fill:none; stroke:#00aa00;stroke-width:3" />
-          <circle cx="14" cy="36" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
-          <circle cx="36" cy="14" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
-          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">2</text>
-        </svg>
-      </button>
-      <button id="segment_tools_button" title="Szakasz" class="tools_button" type="button" data-key="3">
-        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 38 L35 12" style="fill:none; stroke:#00aa00;stroke-width:3" />
-          <circle cx="12" cy="38" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
-          <circle cx="35" cy="12" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
-          <text x="40" y="45" font-size="10" font-family="monospace" fill="var(--button-border-color)">3</text>
-        </svg>
-      </button>
+      <div id="hand_tools" class="tools_panel">
+        <button id="pointer_button" title="Mancs" class="tools_button" type="button" data-key="a">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">👆</text>
+            <text x="45" y="45" text-anchor="end" font-size="10" font-family="monospace" fill="var(--button-border-color)">a</text>
+          </svg>
+        </button>
+      </div>
+      <div id="point_tools" class="tools_panel">
+        <button id="point_tools_button" title="Pont" class="tools_button" type="button" data-key="1">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="3" stroke="#00aa00" fill="#00000000" stroke-width="3" />
+            <text x="45" y="45" text-anchor="end" font-size="10" font-family="monospace" fill="var(--button-border-color)">1</text>
+          </svg>
+        </button>
+      </div>
+      <div id="line_tools" class="tools_panel">
+        <button id="line_tools_button" title="Egyenes" class="tools_button" type="button" data-key="2">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 45 L45 5" style="fill:none; stroke:#00aa00;stroke-width:3" />
+            <circle cx="14" cy="36" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+            <circle cx="36" cy="14" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+            <text x="45" y="45" text-anchor="end" font-size="10" font-family="monospace" fill="var(--button-border-color)">2</text>
+          </svg>
+        </button>
+        <button id="segment_tools_button" title="Szakasz" class="tools_button" type="button" data-key="3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 38 L35 12" style="fill:none; stroke:#00aa00;stroke-width:3" />
+            <circle cx="12" cy="38" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+            <circle cx="35" cy="12" r="2" stroke="var(--button-border-color)" fill="#00000000" stroke-width="2" />
+            <text x="45" y="45" text-anchor="end" font-size="10" font-family="monospace" fill="var(--button-border-color)">3</text>
+          </svg>
+        </button>
+      </div>
     </div>
     <div id="elements_list" class="panel" style="visibility: hidden;">
     </div>
     <div id="board_settings" class="panel" style="visibility: hidden;">
     </div>
+  </div>
+  <div id="main_menu_button" title="Menü" class="checkbox-button" data-key="0">
+    <label>
+    <input id="main_menu_checkbox" type="checkbox">
+    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="25" font-family="monospace" fill="var(--button-border-color)">☰</text>
+      <text x="45" y="45" text-anchor="end" font-size="11" font-family="monospace" fill="var(--button-border-color)">0</text>
+    </svg>
+    </label>
   </div>
 </div>
   Ez a szöveg a táblázat után van.
@@ -173,12 +201,19 @@ body {
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
   </p>
+  <div id="ggb-element"></div>
   <p>
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
 <div id="container_2" class="container"></div>
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
     Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3 Szöveg3
+  </p>
+  <p>
+    Betűellenőrzés:<br/>
+    á é í ó ö ő ü ű „–” ǎ â ț ș î &nbsp;&nbsp;&nbsp; Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î<br/>
+    <b>á é í ó ö ő ü ű „–” ǎ â ț ș î</b> &nbsp;&nbsp;&nbsp; <b>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</b><br/>
+    <i>á é í ó ö ő ü ű „–” ǎ â ț ș î</i> &nbsp;&nbsp;&nbsp; <i>Á É Í Ó Ö Ő Ü Ű <=> Ă Â Ț Ș Î</i><br/>
   </p>
 </article>
 </main>
