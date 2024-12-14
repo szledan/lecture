@@ -564,6 +564,65 @@ class Board {
 
 
 window.onload = function () {
+    if (false) {
+        var textarea = document.getElementById('cse');
+        sceditor.create(textarea, {
+	    format: 'bbcode',
+        //toolbar: 'bold,italic,underline|source',
+	    style: ''
+        });
+
+        let ps = document.getElementsByTagName("p");
+        for(let i = 0; i < ps.length; ++i) {
+            ps[i].addEventListener('dblclick', (e) =>{
+                let ta = "<textarea id='tmp_cse" + i + "'>" + ps[i].innerHTML + "</textarea>";
+                ps[i].insertAdjacentHTML('afterend', ta);
+                sceditor.create(document.getElementById('tmp_cse' + i), {
+                    format: 'bbcode',
+                    //toolbar: 'bold,italic,underline|source',
+                    style: ''
+                    });
+                        });
+        };
+    }
+
+    
+    if (false) {
+        const editor = new EditorJS({
+            hideToolbar: false,
+            autofocus: true,
+            data:{
+                "time": 1601066567579,
+                "blocks": [
+                    {
+                        "type": "paragraph",
+                        "data": {
+                            "text": "A <b>B</b> <i>I</i>"
+                        }
+                    },
+                    {
+                        "type": "paragraph",
+                        "data": {
+                            "text": "A <b>B</b> <i>I</i> df sdf sdf sdf sdf sdf sd sdfg g b  b srb sr sd h th j j jf jfgh jfghj z  g fr df sdf sddf asdf g rtg df df g ergt erfg awef wef we fwe fw f wefwe f wert ef fg t ghrt hrt hrth rth rth rth  sdf gdf g f ref we fwe fwe fwe fwe fwe f wef we fwe fwe wer et ert 34 r34 34r rt ert te g "
+                        }
+                    }
+                ],
+                "version": "2.18.0"
+            },
+            onReady: () => {
+                editor.save().then(outputData => {
+                    this.editor.render(outputData);
+                    this.$emit('close', true)
+                    const edjsParser = edjsHTML();
+                    let html = edjsParser.parse(outputData);
+                    console.log(html);
+                }).catch((error) => {
+                    console.log('Saving failed: ', error)
+                });
+                    }
+        });
+    }
+
     {
         const source = String.raw`
         Astro {
