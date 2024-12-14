@@ -778,4 +778,43 @@ window.onload = function () {
         ctx.stroke();
     };
     boards[0].draw();
+    boards[1].draw_func = function(ctx)
+    {
+        let w = ctx.canvas.width;
+        let h = ctx.canvas.height;
+        ctx.beginPath();
+        ctx.moveTo(0, h / 2);
+        ctx.lineTo(w, h / 2);
+        ctx.strokeStyle = 'grey';
+        ctx.setLineDash([5, 15]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(w / 2, 0);
+        ctx.lineTo(w / 2, h);
+        ctx.strokeStyle = 'grey';
+        ctx.setLineDash([5, 15]);
+        ctx.stroke();
+
+        let f = (x) => { x = (x - w / 2.1) / 7; return -(x * x) + h / 1.3; };
+        let g = (x) => { x = (x - w / 1.9) / 20; return -100 * Math.sin(Math.exp(-x * x)) + h / 2.1; };
+        ctx.beginPath();
+        let s = w / 15;
+        ctx.moveTo(s, f(s));
+        for (let i = s; i < (w - s); ++i) {
+            ctx.lineTo(i, f(i));
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = 'yellow';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s, g(s));
+        for (let i = s; i < (w - s); ++i) {
+            ctx.lineTo(i, g(i));
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = 'orange';
+        ctx.stroke();
+    };
+    boards[1].draw();
 }
