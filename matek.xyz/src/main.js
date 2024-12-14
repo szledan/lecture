@@ -123,6 +123,11 @@ class Point extends Element {
         this.y = y;
     }
 
+    create(args, math, scope) {
+        let p = new Point(args[0], args[1]);
+        return p;
+    }
+
     toString() {
         return `(${this.x}, ${this.y})`;
     }
@@ -509,8 +514,10 @@ class Board {
         const textNode = document.createTextNode(p.ename + " = " + p.etype.tname + p);
         div.appendChild(textNode);
         div.appendChild(document.createElement("br"));
-        this.panels.get("elements_list").appendChild(div);
-        this.panels.get("elements_list").scroll({ top: this.panels.get("elements_list").scrollHeight, behavior: 'smooth' });
+        let el = this.panels.get("elements_list");
+        let es = this.panels.get("elements_list").querySelector("#elements");
+        es.appendChild(div);
+        el.scroll({ top: el.scrollHeight, behavior: 'smooth' });
 
         p.addCallback("move", (e) => { textNode.nodeValue = e.ename + " = " + e.etype.tname + e; });
 
@@ -557,6 +564,106 @@ class Board {
 
 
 window.onload = function () {
+    {
+        const source = String.raw`
+        Astro {
+          Program     = Statement+
+          Statement   = id "=" Exp ";"                         --assignment
+                      | print Exp ";"                          --print
+          Exp         = Exp ("+" | "-") Term                   --binary
+                      | Term
+          Term        = Term ("*" | "/" | "%") Factor          --binary
+                      | Factor
+          Factor      = Primary "^" Factor                     --binary
+                      | "-" Primary                            --negation
+                      | Primary
+          Primary     = id "(" ListOf<Exp, ","> ")"            --call
+                      | numeral                                --num
+                      | id                                     --id
+                      | "(" Exp ")"                            --parens
+
+          numeral     = digit+ ("." digit+)? (("E" | "e") ("+" | "-")? digit+)?
+          print       = "print" ~idchar
+          idchar      = letter | digit | "_"
+          id          = ~print letter idchar*
+          space      += "//" (~"\n" any)*                      --comment
+        }
+        `;
+
+        const astroGrammar = ohm.grammar(source);
+
+        const memory = {
+          π: { type: "NUM", value: Math.PI, access: "RO" },
+          sin: { type: "FUNC", value: Math.sin, paramCount: 1 },
+          cos: { type: "FUNC", value: Math.cos, paramCount: 1 },
+          sqrt: { type: "FUNC", value: Math.sqrt, paramCount: 1 },
+          hypot: { type: "FUNC", value: Math.hypot, paramCount: 2 },
+        };
+
+        function check(condition, message, at) {
+          if (!condition) throw new Error(`${at.source.getLineAndColumnMessage()}${message}`);
+        }
+
+        const evaluator = astroGrammar.createSemantics().addOperation("eval", {
+          Program(statements) {
+            for (const statement of statements.children) statement.eval();
+          },
+          Statement_assignment(id, _eq, expression, _semicolon) {
+            const entity = memory[id.sourceString]
+            check(!entity || entity?.type === "NUM", "Cannot assign", id)
+            check(!entity || entity?.access === "RW", `${id.sourceString} not writable`, id)
+            memory[id.sourceString] = { type: "NUM", value: expression.eval(), access: "RW" }
+          },
+          Statement_print(_print, expression, _semicolon) {
+            console.log(expression.eval())
+          },
+          Exp_binary(left, op, right) {
+            const [x, y] = [left.eval(), right.eval()]
+            return op.sourceString == "+" ? x + y : x - y
+          },
+          Term_binary(left, op, right) {
+            const [x, o, y] = [left.eval(), op.sourceString, right.eval()]
+            return o == "*" ? x * y : o == "/" ? x / y : x % y
+          },
+          Factor_binary(left, _op, right) {
+            return left.eval() ** right.eval()
+          },
+          Primary_parens(_leftParen, e, _rightParen) {
+            return e.eval()
+          },
+          Primary_num(num) {
+            return Number(num.sourceString)
+          },
+          Primary_id(id) {
+            const entity = memory[id.sourceString]
+            check(entity !== undefined, `${id.sourceString} not defined`, id)
+            check(entity?.type === "NUM", `Expected type number`, id)
+            return entity.value
+          },
+          Primary_call(id, _open, exps, _close) {
+            const entity = memory[id.sourceString]
+            check(entity !== undefined, `${id.sourceString} not defined`, id)
+            check(entity?.type === "FUNC", "Function expected", id)
+            const args = exps.asIteration().children.map(e => e.eval())
+            check(args.length === entity?.paramCount, "Wrong number of arguments", exps)
+            return entity.value(...args)
+          },
+        })
+
+        try {
+          const match = astroGrammar.match("x=4*π; print 3+2*x;");
+          if (match.failed()) throw new Error(match.message);
+          evaluator(match).eval();
+        } catch (e) {
+          console.error(`${e}`);
+        }
+
+    }
+
+
+
+
+
     document.querySelector("#dark-mode-toggle").addEventListener('click', () => {
         document.body.classList.toggle("latex-dark");
         document.body.classList.toggle("button-dark");

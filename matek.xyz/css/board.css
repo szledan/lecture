@@ -24,6 +24,7 @@
   height: 300px;
   margin: 10px 0px 10px 0px;
   background-color: var(--container-bg-color);
+  font-size: 80%;
 }
 
 .board {

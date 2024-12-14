@@ -5,6 +5,17 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta charset="utf-8"/>
 
+<!--
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+<script src="https://unpkg.com/ohm-js@17/dist/ohm.js"></script>
+<script src="https://unpkg.com/peggy"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.0.0/math.js"></script>
+
 <link rel="stylesheet" href="https://latex.vercel.app/style.css">
 <style>
 body {
@@ -38,17 +49,18 @@ body {
 <link rel="stylesheet" href="./css/board.css">
 <script src="./src/main.js"></script>
 
+<!--
 <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 <script>
     var ggbApp = new GGBApplet({
-        "appName": "geometry",
-        "width": 600,
+        "appName": "classic",
+        "width": 800,
         "height": 300,
         "showToolBar": true,
         "showAlgebraInput": false,
         "showMenuBar": true,
         "language": "hu",
-        "editorBackground-Color": "#333333",
+        "buttonBorderColor": "#333333",
         "editorForeground-Color": "#333333"
         }, true);
     ggbApp
@@ -56,6 +68,7 @@ body {
         ggbApp.inject('ggb-element');
     });
 </script>
+-->
 </head>
 
 <body>
@@ -90,7 +103,7 @@ body {
     Alapfeltevésünk, hogy a matematikai eszközöket gyakorlással lehet elsajátítani.
     Célunk, hogy ez a gyakorlás legyen gazdag, sokrétű és játékos.
     Hisszük, hogy a matematika könnyű és élvezetes; csupán magabiztosan kell az eszközeivel bánni.
-    A magabiztosság megteremtésében ígyekszik ez az oldal segítséget adni.
+    A magabiztosság megteremtésében igyekszik ez az oldal segítséget adni.
   </p>
 </div>
 
@@ -98,6 +111,8 @@ body {
   <article class="indent-pars">
     <h2 id="001-a-pont">A <i>pont</i> fogalma</h2>
 
+    <div id="editor1"></div>
+    <div id="editorjs"></div>
   <p>
     Szövegbe illesztett képlet: $\gamma=\lim\limits_{n\to\infty}\left(\sum\limits_{k=1}^n\frac{1}{k}-\ln(n)-\sin(n)\right) $.
   </p>
@@ -112,7 +127,7 @@ body {
     </p>
 
   <p>
-    Itt lehet kipróbálni a „táblát”:
+    Itt lehet kipróbálni a „táblát”: 
 <div id="container_1" class="container">
   <div class="board">
     <canvas id="canvas_draw" class="draw_canvas" width="100" height="100"></canvas>
@@ -178,6 +193,8 @@ body {
       </div>
     </div>
     <div id="elements_list" class="panel" style="visibility: hidden;">
+      <div id="elements"></div>
+      <input id="terminal">
     </div>
     <div id="board_settings" class="panel" style="visibility: hidden;">
     </div>
@@ -201,7 +218,7 @@ body {
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
   </p>
-  <div id="ggb-element"></div>
+  <!--<div id="ggb-element"></div>-->
   <p>
     Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2 Szöveg2
 <div id="container_2" class="container"></div>
