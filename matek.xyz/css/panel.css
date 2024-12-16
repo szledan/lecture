@@ -132,7 +132,6 @@ button:focus {
   text-align: center;
   padding: 0;
   overflow:auto;
-  float: left;
   cursor: pointer;
 }
 .checkbox-button label svg {
