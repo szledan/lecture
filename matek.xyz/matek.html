@@ -85,13 +85,10 @@ body {
 
 <body>
 
-<div>
-    <button id="dark-mode-toggle" title="Váltás világos és sötét megjelenés között.">🌓︎</button>
-    <button id="settings_button" title="Beállítások">☰</button>
-</div>
-<header onmouseenter="console.log('AAAAAAAAAAAAa');document.getElementById('settings_button').style.visibility = 'visible';"
-        onmouseleave="console.log('AAAAAAAAAAAAa');document.getElementById('settings_button').style.visibility = 'hidden';"
->
+<button id="dark-mode-toggle" title="Váltás világos és sötét megjelenés között.">🌓︎</button>
+<button id="settings_button" title="Beállítások">☰</button>
+
+<header>
   <h1>Matek.xyz</h1>
   <p class="author">
     Ledán Szilárd <br/>
@@ -136,7 +133,9 @@ body {
     At sollicitudin faucibu. Szövegbe illesztett képlet: $\gamma=\lim\limits_{n\to\infty}\left(\sum\limits_{k=1}^n\frac{1}{k}-\ln(n)-\sin(n)\right) $.
     Scelerisque eget ornare torquent nam molestie porttitor libero nunc? Vestibulum parturient auctor pellentesque cubilia ante gravida luctus potenti. Erat purus augue penatibus; mattis class conubia pretium. Dapibus nibh porta lectus varius a. Sapien quisque id turpis, dis dis aptent.
   </p>
-  <div id="panel_1"></div>
+  <div id="editor_1" class="editor">
+
+  </div>
   <p>
     Lorem ipsum odor amet, consectetuer adipiscing elit. Turpis elit maximus penatibus eleifend; tempor fames faucibus platea. Integer cursus nullam sed congue malesuada. At sollicitudin faucibus ac taciti, mi erat. Scelerisque eget ornare torquent nam molestie porttitor libero nunc? Vestibulum parturient auctor pellentesque cubilia ante gravida luctus potenti. Erat purus augue penatibus; mattis class conubia pretium. Dapibus nibh porta lectus varius a. Sapien quisque id turpis, dis dis aptent.
     Lorem ipsum consectetuer odor. Ha $a \ne 0$, Akkor az $ax^2 + bx + c = 0$ egyenletnek két megoldása van. A megoldások pedig:
@@ -256,7 +255,7 @@ body {
     Lorem ipsum odor amet, consectetuer adipiscing elit. Turpis elit maximus penatibus eleifend; tempor fames faucibus platea. Integer cursus nullam sed congue malesuada. At sollicitudin faucibus ac taciti, mi erat. Scelerisque eget ornare torquent nam molestie porttitor libero nunc? Vestibulum parturient auctor pellentesque cubilia ante gravida luctus potenti. Erat purus augue penatibus; mattis class conubia pretium. Dapibus nibh porta lectus varius a. Sapien quisque id turpis, dis dis aptent.
   </p>
   <!--<div id="editorjs"></div>-->
-  <!--<div id="editor"></div>-->
+  <div id="editor"></div>
   <!--
   <textarea id="cse" rows="4" cols="20">$$x_{1,2} = {-b \pm \sqrt{b^2-4ac} \over 2a}$$</textarea>
   <button id="htmlbutton" onclick="var out = document.getElementById('out');var parser = sceditor.instance(document.getElementById('cse'));out.innerHTML = parser.fromBBCode(parser.val(), true);MathJax.Hub.Queue(['Typeset',MathJax.Hub,'out']);" title="Beállítások">☰</button>
